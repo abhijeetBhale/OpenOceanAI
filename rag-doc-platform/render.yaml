@@ -1,0 +1,49 @@
+services:
+  - type: web
+    name: rag-doc-backend
+    env: node
+    buildCommand: cd server && npm ci
+    startCommand: cd server && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGO_URL
+        value: $DATABASE_URL
+      - key: CHROMA_URL
+        value: https://rag-chromadb.onrender.com
+      - key: GROQ_API_KEY
+        scope: runtime
+      - key: JOOBLE_API_KEY
+        scope: runtime
+      - key: JWT_SECRET
+        scope: runtime
+      - key: FRONTEND_URL
+        value: https://rag-doc-platform.onrender.com
+
+  - type: web
+    name: rag-doc-client
+    env: node
+    buildCommand: cd client && npm ci && npm run build
+    startCommand: cd client && npx serve -s dist -l 5173
+    envVars:
+      - key: VITE_API_URL
+        value: https://rag-doc-backend.onrender.com
+    routes:
+      - path: /
+        destination: /index.html
+      - path: /:path*
+        destination: /index.html
+
+  - type: web
+    name: rag-doc-client2
+    env: node
+    buildCommand: cd client2 && npm ci && npm run build
+    startCommand: cd client2 && npx serve -s dist -l 5174
+    envVars:
+      - key: VITE_API_URL
+        value: https://rag-doc-backend.onrender.com
+    routes:
+      - path: /
+        destination: /index.html
+      - path: /:path*
+        destination: /index.html
