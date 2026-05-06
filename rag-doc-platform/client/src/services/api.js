@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const API_BASE = import.meta.env.VITE_API_BASE || "/api";
+const API_BASE =
+  import.meta.env.VITE_API_BASE ||
+  (import.meta.env.PROD ? "https://rag-doc-backend.onrender.com/api" : "/api");
 
 export const uploadDocument = async (file) => {
   const formData = new FormData();

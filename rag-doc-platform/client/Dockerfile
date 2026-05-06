@@ -2,6 +2,9 @@ FROM node:20 AS builder
 
 WORKDIR /app
 
+ARG VITE_API_BASE=https://rag-doc-backend.onrender.com/api
+ENV VITE_API_BASE=$VITE_API_BASE
+
 COPY package*.json ./
 
 RUN npm install --platform=linux --arch=x64
