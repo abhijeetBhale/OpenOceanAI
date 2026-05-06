@@ -191,6 +191,7 @@ Troubleshooting & tips
 - If using Docker Compose and you change `server/.env`, restart the backend container: `docker compose up -d --build backend`.
 - If you do not want to use MongoDB yet, omit `MONGO_URL`. The backend will start with database-backed features disabled, and `/health` will report `"database":"disabled"`.
 - For local Docker Compose, keep `CHROMA_URL=http://chromadb:8000` because containers talk to the `chromadb` service name. For host-machine local runs, use `CHROMA_URL=http://localhost:8000`. For Render, set `CHROMA_URL` to your public Chroma service URL in both the backend and `python-rag` services.
+- If hosted Chroma is unavailable or incompatible, the Node backend now falls back to an in-memory vector store. Upload and Q&A will still work for the current runtime session, but vectors will not persist across restarts.
 - To view backend logs:
 
 ```bash
