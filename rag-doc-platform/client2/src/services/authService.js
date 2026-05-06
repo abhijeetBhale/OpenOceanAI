@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE || "/api";
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE ||
+  (import.meta.env.PROD ? "https://rag-doc-backend.onrender.com/api" : "/api");
 
 const authAPI = axios.create({
   baseURL: `${API_BASE_URL}/auth`,
