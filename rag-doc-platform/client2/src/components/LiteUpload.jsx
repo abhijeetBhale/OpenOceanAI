@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { uploadDocument } from '../services/api';
+import { uploadDocument, validateFile } from '../services/api';
 
 export default function LiteUpload({ onUploadSuccess, setIsLoading }) {
     const inputRef = useRef(null);
@@ -8,9 +8,10 @@ export default function LiteUpload({ onUploadSuccess, setIsLoading }) {
 
     const handleFile = async (file) => {
         if (!file) return;
-        const validTypes = ['application/pdf', 'image/png', 'image/jpeg', 'image/jpg'];
-        if (!validTypes.includes(file.type)) {
-            setMessage('Please upload a PDF or image file');
+        
+        const validation = validateFile(file);
+        if (!validation.valid) {
+            setMessage(validation.error);
             return;
         }
 

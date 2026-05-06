@@ -12,6 +12,7 @@ import chatRoutes from "./routes/chatRoutes.js";
 import atsRoutes from "./routes/atsRoutes.js";
 import langchainRoutes from "./routes/langchainRoutes.js";
 import summaryRoutes from "./routes/summaryRoutes.js";
+import financialRoutes from "./routes/financialRoutes.js";
 
 dotenv.config();
 
@@ -47,6 +48,7 @@ app.use("/api/share", shareRoutes);
 app.use("/api/ats-score", atsRoutes);
 app.use("/api/langchain", langchainRoutes);
 app.use("/api/summary", summaryRoutes);
+app.use("/api/financial-analysis", financialRoutes);
 app.use("/api/chat", chatRoutes);
 
 app.use((err, req, res, next) => {

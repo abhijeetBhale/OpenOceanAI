@@ -55,6 +55,16 @@ export default function LiteNavbar({ mode, setMode, hasDocument }) {
                         >
                             ATS
                         </button>
+                        <button
+                            onClick={() => setMode('financial')}
+                            className={`px-3 py-1.5 rounded-comfortable text-sm font-medium transition-all ${
+                                mode === 'financial' 
+                                ? 'bg-terracotta text-ivory' 
+                                : 'text-charcoal hover:bg-sand'
+                            }`}
+                        >
+                            Financial
+                        </button>
                     </nav>
 
                     <div className="flex items-center gap-3">

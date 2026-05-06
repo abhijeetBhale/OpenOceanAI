@@ -4,6 +4,7 @@ import LiteUpload from '../components/LiteUpload';
 import LiteChat from '../components/LiteChat';
 import QuickSummary from '../components/QuickSummary';
 import AtsScore from '../components/AtsScore';
+import FinancialAnalysis from '../components/FinancialAnalysis';
 
 const STORAGE_KEY = 'rag-chat-messages';
 const DOC_INFO_KEY = 'rag-document-info';
@@ -88,6 +89,10 @@ export default function Home() {
 
                             {mode === 'ats' && (
                                 <AtsScore docInfo={docInfo} />
+                            )}
+
+                            {mode === 'financial' && (
+                                <FinancialAnalysis docInfo={docInfo} />
                             )}
                         </div>
 
