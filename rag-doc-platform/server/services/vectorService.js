@@ -1,5 +1,4 @@
-import { ChromaClient, HttpClient } from "chromadb";
-import { URL } from "url";
+import { ChromaClient } from "chromadb";
 
 const COLLECTION_NAME = "documents";
 
@@ -13,21 +12,9 @@ function resolveChromaUrl() {
 async function getChromaClient() {
   if (!chromaClient) {
     const chromaUrl = resolveChromaUrl();
-
-    if (/^https?:\/\//i.test(chromaUrl)) {
-      const parsedUrl = new URL(chromaUrl);
-      chromaClient = new HttpClient({
-        host: parsedUrl.hostname,
-        port: Number(
-          parsedUrl.port || (parsedUrl.protocol === "https:" ? 443 : 80),
-        ),
-        ssl: parsedUrl.protocol === "https:",
-      });
-    } else {
-      chromaClient = new ChromaClient({
-        path: chromaUrl,
-      });
-    }
+    chromaClient = new ChromaClient({
+      path: chromaUrl,
+    });
   }
   return chromaClient;
 }
