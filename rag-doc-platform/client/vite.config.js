@@ -6,11 +6,7 @@ const apiTarget =
   process.env.VITE_API_TARGET ||
   "http://localhost:5000";
 
-const allowedHosts = [
-  ".onrender.com",
-  "localhost",
-  "127.0.0.1",
-];
+const allowedHosts = [".onrender.com", "localhost", "127.0.0.1"];
 
 export default defineConfig({
   plugins: [react()],
