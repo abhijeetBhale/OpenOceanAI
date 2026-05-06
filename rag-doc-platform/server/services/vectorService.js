@@ -1,12 +1,12 @@
-import { ChromaClient } from 'chromadb';
+import { ChromaClient } from "chromadb";
 
-const COLLECTION_NAME = 'documents';
+const COLLECTION_NAME = "documents";
 
 let chromaClient = null;
 let collection = null;
 
 function resolveChromaUrl() {
-  return process.env.CHROMA_URL || 'http://chromadb:8000';
+  return process.env.CHROMA_URL || "http://chromadb:8000";
 }
 
 async function getChromaClient() {
@@ -21,16 +21,16 @@ async function getChromaClient() {
 
 export async function initializeVectorStore() {
   const client = await getChromaClient();
-  
+
   try {
     collection = await client.getOrCreateCollection({
       name: COLLECTION_NAME,
     });
   } catch (error) {
-    console.error('Failed to initialize vector store:', error);
+    console.error("Failed to initialize vector store:", error);
     throw error;
   }
-  
+
   return collection;
 }
 
@@ -52,7 +52,7 @@ export async function addDocuments(documents) {
       metadatas,
     });
   } catch (error) {
-    console.error('Failed to add documents:', error);
+    console.error("Failed to add documents:", error);
     throw error;
   }
 }
@@ -74,7 +74,7 @@ export async function searchSimilar(queryEmbedding, topK = 5) {
       distances: results.distances[0] || [],
     };
   } catch (error) {
-    console.error('Search failed:', error);
+    console.error("Search failed:", error);
     throw error;
   }
 }
@@ -90,7 +90,7 @@ export async function clearCollection() {
       await collection.delete({ ids: all.ids });
     }
   } catch (error) {
-    console.error('Failed to clear collection:', error);
+    console.error("Failed to clear collection:", error);
     throw error;
   }
 }
