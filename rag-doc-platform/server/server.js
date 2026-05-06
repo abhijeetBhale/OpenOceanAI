@@ -29,7 +29,11 @@ const databaseEnabled = await connectDB();
 app.get("/health", (req, res) => {
   res.json({
     status: "ok",
-    database: databaseEnabled ? (isDatabaseConnected() ? "connected" : "disconnected") : "disabled",
+    database: databaseEnabled
+      ? isDatabaseConnected()
+        ? "connected"
+        : "disconnected"
+      : "disabled",
   });
 });
 
