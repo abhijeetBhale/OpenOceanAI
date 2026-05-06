@@ -5,6 +5,7 @@ import LiteChat from '../components/LiteChat';
 import QuickSummary from '../components/QuickSummary';
 import AtsScore from '../components/AtsScore';
 import FinancialAnalysis from '../components/FinancialAnalysis';
+import CareerRoadmap from '../components/CareerRoadmap';
 
 const STORAGE_KEY = 'rag-chat-messages';
 const DOC_INFO_KEY = 'rag-document-info';
@@ -92,7 +93,11 @@ export default function Home() {
                             )}
 
                             {mode === 'financial' && (
-                                <FinancialAnalysis docInfo={docInfo} />
+                                <FinancialAnalysis />
+                            )}
+
+                            {mode === 'roadmap' && (
+                                <CareerRoadmap />
                             )}
                         </div>
 

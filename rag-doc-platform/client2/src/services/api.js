@@ -159,6 +159,16 @@ export const analyzeFinancial = async (documentText, category = 'financial') => 
   return response.data;
 };
 
+export const generateCareerRoadmap = async (documentText, category = 'resume') => {
+  const response = await axios.post(`${API_BASE}/career-roadmap`, {
+    documentText,
+    category,
+  }, {
+    timeout: 60000,
+  });
+  return response.data;
+};
+
 export default {
   uploadDocument,
   askQuestion,
@@ -167,6 +177,7 @@ export default {
   findJobs,
   analyzeAtsScore,
   analyzeFinancial,
+  generateCareerRoadmap,
   isOnline,
   validateFile,
 };

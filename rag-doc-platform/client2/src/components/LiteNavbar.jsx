@@ -65,6 +65,16 @@ export default function LiteNavbar({ mode, setMode, hasDocument }) {
                         >
                             Financial
                         </button>
+                        <button
+                            onClick={() => setMode('roadmap')}
+                            className={`px-3 py-1.5 rounded-comfortable text-sm font-medium transition-all ${
+                                mode === 'roadmap' 
+                                ? 'bg-terracotta text-ivory' 
+                                : 'text-charcoal hover:bg-sand'
+                            }`}
+                        >
+                            Roadmap
+                        </button>
                     </nav>
 
                     <div className="flex items-center gap-3">

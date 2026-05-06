@@ -13,6 +13,7 @@ import atsRoutes from "./routes/atsRoutes.js";
 import langchainRoutes from "./routes/langchainRoutes.js";
 import summaryRoutes from "./routes/summaryRoutes.js";
 import financialRoutes from "./routes/financialRoutes.js";
+import careerRoadmapRoutes from "./routes/careerRoadmapRoutes.js";
 
 dotenv.config();
 
@@ -49,6 +50,7 @@ app.use("/api/ats-score", atsRoutes);
 app.use("/api/langchain", langchainRoutes);
 app.use("/api/summary", summaryRoutes);
 app.use("/api/financial-analysis", financialRoutes);
+app.use("/api/career-roadmap", careerRoadmapRoutes);
 app.use("/api/chat", chatRoutes);
 
 app.use((err, req, res, next) => {
