@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import { connectDB } from "./config/database.js";
+import { connectDB, isDatabaseConnected } from "./config/database.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
 import queryRoutes from "./routes/queryRoutes.js";
 import suggestedQuestionsRoutes from "./routes/suggestedQuestionsRoutes.js";
@@ -24,10 +24,13 @@ app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use("/uploads", express.static("uploads"));
 
 // Connect to database
-await connectDB();
+const databaseEnabled = await connectDB();
 
 app.get("/health", (req, res) => {
-  res.json({ status: "ok" });
+  res.json({
+    status: "ok",
+    database: databaseEnabled ? (isDatabaseConnected() ? "connected" : "disconnected") : "disabled",
+  });
 });
 
 // All routes are now public (no authentication required)

@@ -181,6 +181,7 @@ Troubleshooting & tips
 
 - If you see errors connecting to MongoDB when running locally, verify `MONGO_URL` and that MongoDB is running on that host/port.
 - If using Docker Compose and you change `server/.env`, restart the backend container: `docker compose up -d --build backend`.
+- If you do not want to use MongoDB yet, omit `MONGO_URL`. The backend will start with database-backed features disabled, and `/health` will report `"database":"disabled"`.
 - To view backend logs:
 
 ```bash
