@@ -9,6 +9,7 @@ import logging
 import chromadb
 from chromadb.config import Settings
 from pypdf import PdfReader
+from urllib.parse import urlparse
 
 app = FastAPI(title="LangChain-style RAG (FastAPI)")
 
@@ -16,6 +17,7 @@ EMBEDDING_MODEL = os.environ.get("EMBEDDING_MODEL", "text-embedding-3-small")
 CHAT_MODEL = os.environ.get("CHAT_MODEL", "gpt-3.5-turbo")
 CHROMA_HOST = os.environ.get("CHROMA_HOST", "chromadb")
 CHROMA_PORT = int(os.environ.get("CHROMA_PORT", 8000))
+CHROMA_URL = os.environ.get("CHROMA_URL")
 DEFAULT_COLLECTION = os.environ.get("COLLECTION_NAME", "documents")
 
 # Support OpenAI or GROQ (Groq exposes an OpenAI-compatible endpoint)
@@ -129,6 +131,20 @@ openai_client = get_openai_client()
 
 
 def get_chroma_client():
+    if CHROMA_URL:
+        parsed = urlparse(CHROMA_URL)
+        host = parsed.hostname or CHROMA_HOST
+        port = parsed.port or (443 if parsed.scheme == "https" else 80)
+        ssl = parsed.scheme == "https"
+        return chromadb.Client(
+            Settings(
+                chroma_api_impl="rest",
+                chroma_server_host=host,
+                chroma_server_http_port=port,
+                chroma_server_ssl_enabled=ssl,
+            )
+        )
+
     return chromadb.Client(Settings(chroma_api_impl="rest", chroma_server_host=CHROMA_HOST, chroma_server_http_port=CHROMA_PORT))
 
 

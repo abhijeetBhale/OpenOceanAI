@@ -5,9 +5,13 @@ const COLLECTION_NAME = 'documents';
 let chromaClient = null;
 let collection = null;
 
+function resolveChromaUrl() {
+  return process.env.CHROMA_URL || 'http://chromadb:8000';
+}
+
 async function getChromaClient() {
   if (!chromaClient) {
-    const chromaUrl = process.env.CHROMA_URL || 'http://chromadb:8000';
+    const chromaUrl = resolveChromaUrl();
     chromaClient = new ChromaClient({
       path: chromaUrl,
     });

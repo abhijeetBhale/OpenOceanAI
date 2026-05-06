@@ -20,6 +20,16 @@ if (!fs.existsSync(UPLOAD_DIR)) {
   fs.mkdirSync(UPLOAD_DIR, { recursive: true });
 }
 
+function getPublicApiBaseUrl(req) {
+  const configuredBaseUrl = process.env.PUBLIC_API_BASE_URL?.trim();
+
+  if (configuredBaseUrl) {
+    return configuredBaseUrl.replace(/\/$/, "");
+  }
+
+  return `${req.protocol}://${req.get("host")}`;
+}
+
 export async function uploadDocument(req, res) {
   try {
     if (!req.file) {
@@ -57,7 +67,7 @@ export async function uploadDocument(req, res) {
 
     const classification = await classifyDocument(extractedText);
     // keep uploaded file in ./uploads so client can preview it; return URL
-    const fileUrl = `/uploads/${req.file.filename}`;
+    const fileUrl = `${getPublicApiBaseUrl(req)}/uploads/${req.file.filename}`;
     storeDocument(
       extractedText,
       req.file.originalname,

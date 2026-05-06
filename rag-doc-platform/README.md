@@ -152,6 +152,14 @@ Server environment — create and edit [server/.env](server/.env) (see [server/.
 - `JWT_SECRET` — a long random string used to sign JWT tokens
 - `MAIL_HOST`, `MAIL_PORT`, `MAIL_USER`, `MAIL_PASSWORD`, `MAIL_FROM` — optional SMTP settings (for email verification)
 - `FRONTEND_URL` — frontend base URL used when generating shareable links (default `http://localhost:5173`)
+- `PUBLIC_API_BASE_URL` — optional public backend base URL used to generate uploaded file preview links in deployed environments (example: `https://rag-doc-backend.onrender.com`)
+
+Python RAG environment — create and edit [python-rag/.env](python-rag/.env) (see [python-rag/.env.example](python-rag/.env.example)):
+
+- `CHROMA_URL` — preferred single ChromaDB URL for both local and deployed environments
+- `CHROMA_HOST`, `CHROMA_PORT` — fallback host/port values if `CHROMA_URL` is not set
+- `OPENAI_API_KEY` or `GROQ_API_KEY` — key used for embeddings/chat in the Python RAG service
+- `GROQ_API_BASE`, `OPENAI_API_BASE`, `COLLECTION_NAME`, `EMBEDDING_MODEL`, `CHAT_MODEL` — optional model/service overrides
 
 Client environment — create and edit [client/.env](client/.env) (see [client/.env.example](client/.env.example)):
 
@@ -182,6 +190,7 @@ Troubleshooting & tips
 - If you see errors connecting to MongoDB when running locally, verify `MONGO_URL` and that MongoDB is running on that host/port.
 - If using Docker Compose and you change `server/.env`, restart the backend container: `docker compose up -d --build backend`.
 - If you do not want to use MongoDB yet, omit `MONGO_URL`. The backend will start with database-backed features disabled, and `/health` will report `"database":"disabled"`.
+- For local Docker Compose, keep `CHROMA_URL=http://chromadb:8000` because containers talk to the `chromadb` service name. For host-machine local runs, use `CHROMA_URL=http://localhost:8000`. For Render, set `CHROMA_URL` to your public Chroma service URL in both the backend and `python-rag` services.
 - To view backend logs:
 
 ```bash
